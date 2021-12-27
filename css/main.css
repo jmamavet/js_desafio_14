@@ -75,6 +75,9 @@ body {
 .show {
   margin-bottom: 4%; }
 
+#compra {
+  display: none; }
+
 /* ESTILOS SHOWS */
 .videoShows {
   margin-top: 4%; }

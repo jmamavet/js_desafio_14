@@ -20,13 +20,15 @@ $("#compra").append(`<table id="tabla" class="table table-striped table-dark">
                             <th>Fecha Del Recital</th>
                             <th>Ubicacion</th>
                             <th>Fecha De Entrega</th>
-                            <th>Sub-Total</th>
+                            <th>Sub-Total US$</th>
+                            <th>Sub-Total $</th>
                         </thead>
                         <tbody>
                             
                         </tbody>
                     </table>`);
 $("#compra").fadeIn(2000);
+
 // Funcion para validar el formulario y pasarle los valores validados a los objetos
 function validarFormulario(e) {
 
@@ -65,7 +67,7 @@ function validarFormulario(e) {
         let fechaRecitalSeleccionada = $("#opcionesFechaRecital option:selected").text();
         let ubicacionSeleccionada;
         ubicaciones.forEach((ubicacion) => {
-            if ((ubicacion.nombre + ' - $' + ubicacion.precio) == $("#opcionesUbicacion option:selected").text()) {
+            if ((ubicacion.nombre + ' - US$' + ubicacion.precio) == $("#opcionesUbicacion option:selected").text()) {
                 ubicacionSeleccionada = ubicacion;
             }
         });
@@ -101,9 +103,10 @@ function generarFilasCompra(entrada) {
     $("tbody").append(`<tr>
                             <td>${entrada.cantidad}</td>
                             <td>${entrada.fechaRecital}</td>
-                            <td>${entrada.ubicacion.nombre + ' - $' + entrada.ubicacion.precio}</td>
+                            <td>${entrada.ubicacion.nombre + ' - US$' + entrada.ubicacion.precio}</td>
                             <td>${entrada.fechaRetiro}</td>
-                            <td>${entrada.cantidad * entrada.ubicacion.precio}</td>
+                            <td>US$${entrada.cantidad * entrada.ubicacion.precio}</td>
+                            <td>$${entrada.cantidad * entrada.ubicacion.precio * valorCotizacionDolar}</td>
                         </tr>`)
 
     calcularTotal();
@@ -119,9 +122,9 @@ function calcularTotal() {
     })
     // Si es la primera entrada creo el Total, sino actualizo el Total
     if ($("#totalCompra").text() == "") {
-        $("#totalCompra").append(`Total: ${total}`);
+        $("#totalCompra").append(`Total: US$${total} - $${total * valorCotizacionDolar}`);
     } else {
-        $("#totalCompra").text(`Total: ${total}`);
+        $("#totalCompra").text(`Total: US$${total} - $${total * valorCotizacionDolar}`);
     }
 }
 
@@ -144,3 +147,4 @@ function calcularStock(fila, cantidadDeEntradas) {
     }
 }
 */
+
